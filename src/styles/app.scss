@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Chokokutai&family=Poppins:wght@100;300&family=Yuji+Hentaigana+Akari&family=Yuji+Hentaigana+Akebono&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.main-navbar{
+    background-color: blueviolet;
+    display: flex;
+    align-items: center;
+
+    height:3rem;
+    >h2{
+        color: white;
+
+    }
+}
+
+.right-navbar{
+    display: flex;
+    text-decoration: none;
+    color: white;
+    
+}
+
+Link{
+    display: flex;
+    justify-content:flex-end;
+    text-decoration: none;
+    color: white;
+  
+}
