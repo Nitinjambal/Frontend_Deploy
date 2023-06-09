@@ -1,4 +1,15 @@
 import React from "react";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Input,
+} from "@chakra-ui/react";
 
 function TodoLists({
   title,
@@ -9,23 +20,29 @@ function TodoLists({
   id,
 }) {
   return (
-    <div className="todo">
-      <div>
-        <h1>{title}</h1>
-        <h3>{description}</h3>
-      </div>
-
-      <div>
-        <input
-          type="checkbox"
-          checked={isCompleted}
-          onChange={() => updateHandler(id)}
-        />
-        <button onClick={() => deleteHandler(id)} className="btn">
-          Delete
-        </button>
-      </div>
-    </div>
+    <Tbody>
+      <Tr>
+        <Td textDecoration={isCompleted ? "line-through" : "none"}>{title}</Td>
+        <Td textDecoration={isCompleted ? "line-through" : "none"}>
+          {description}
+        </Td>
+        <Td>
+          {" "}
+          <input
+            padding="1rem"
+            type="checkbox"
+            checked={isCompleted}
+            onChange={() => updateHandler(id)}
+          />
+        </Td>
+        <Td>
+          {" "}
+          <button onClick={() => deleteHandler(id)} >
+            Delete
+          </button>
+        </Td>
+      </Tr>
+    </Tbody>
   );
 }
 

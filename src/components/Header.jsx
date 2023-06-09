@@ -28,21 +28,31 @@ function Header() {
 
   return (
     <nav className="main-navbar">
-      <h2> TODO APP</h2>
+      <div>
+        <h2> TODO APP</h2>
+      </div>
 
-      <div className="right-navbar">
-        <Link to="/">Home</Link>
-        <Link to="/profile">Profile</Link>
+      <div className="right-nav">
+        <ul>
+          {" "}
+          <Link to="/">Home</Link>
+        </ul>
+        <ul>
+          {" "}
+          <Link to="/profile">Profile</Link>
+        </ul>
 
         {isAuth ? (
           <>
             <button disabled={loading} onClick={handleLogout} className="btn">
               Logout
             </button>
-            <h1>{userName}</h1>
           </>
         ) : (
-          <Link to="/login">Login</Link>
+          <ul>
+            {" "}
+            <Link to="/login">Login</Link>
+          </ul>
         )}
       </div>
     </nav>

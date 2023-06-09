@@ -8,29 +8,51 @@
 }
 
 
+
 .main-navbar{
     background-color: blueviolet;
     display: flex;
     align-items: center;
-
     height:3rem;
-    >h2{
-        color: white;
+    padding: 1rem;
+    text-decoration: none;
+    color: white;
+    justify-content: space-between;
 
+    >div{
+        display: flex;
+        justify-content: space-between;
+        gap:2rem;
+         color: white;
     }
-}
+    }
 
-.right-navbar{
-    display: flex;
-    text-decoration: none;
-    color: white;
+    .right-nav{
+        text-decoration: none;
+        color: white;
     
-}
+    ul>Link{
+        text-decoration: none;
+        color: white;
+    }
+    }
 
-Link{
-    display: flex;
-    justify-content:flex-end;
-    text-decoration: none;
-    color: white;
-  
-}
+    form{
+        width: 30%;
+         border: 1px solid gray;
+         margin: auto;
+         margin-top: 2rem;
+         
+         text-align: center;
+         >input{
+            width: 100%;
+            padding: 0.5rem;
+            border-bottom: 1px solid gray;
+         }
+         >button{
+            padding: 0.5rem;
+            background-color: whitesmoke    ;
+            width: 100%;
+         }
+    }
+    

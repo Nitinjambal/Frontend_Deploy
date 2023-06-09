@@ -4,7 +4,18 @@ import { serverLink } from "../main";
 import { toast } from "react-hot-toast";
 import TodoLists from "../components/TodoLists";
 import { AppContext } from "../components/AppContextProvider";
-import { Navigate } from "react-router-dom";
+import { Form, Navigate } from "react-router-dom";
+
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Input,
+} from "@chakra-ui/react";
 
 function Home() {
   const [title, setTitle] = useState("");
@@ -25,25 +36,24 @@ function Home() {
       );
       toast.success(data.message);
       setRefresh((prev) => !prev);
-    } catch (error) {}
-    console.log("error:", error);
-    toast.error("something went wrong");
+    } catch (error) {
+      console.log("error:", error);
+      toast.error(error.response.data.message);
+    }
   };
 
   const deleteHandler = async (id) => {
     try {
-      const { data } = await axios.delete(
-        `${serverLink}/task/${id}`,
-        {},
-        {
-          withCredentials: true,
-        }
-      );
+      const { data } = await axios.delete(`${serverLink}/task/${id}`, {
+        withCredentials: true,
+      });
+
       toast.success(data.message);
       setRefresh((prev) => !prev);
-    } catch (error) {}
-    console.log("error:", error);
-    toast.error("something went wrong");
+    } catch (error) {
+      console.log("error:", error);
+      toast.error(error.response.data.message);
+    }
   };
 
   const handleForm = async (e) => {
@@ -70,22 +80,24 @@ function Home() {
       setRefresh((prev) => !prev);
     } catch (error) {
       console.log("error:", error);
-      toast.error("something went wrong");
+      toast.error(error.response.data.message);
+    }
+  };
+
+  const getAllTask = async () => {
+    try {
+      let { data } = await axios.get(`${serverLink}/task/getAllTask`, {
+        withCredentials: true,
+      });
+      setUserTasks(data.userTasks);
+    } catch (error) {
+      console.log("error:", error);
+      toast.error(error.response.data.message);
     }
   };
 
   useEffect(() => {
-    axios
-      .get(`${serverLink}/task/getAllTask`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log(res);
-        setUserTasks(res.data.userTasks);
-      })
-      .catch((error) => {
-        console.log("error:", error);
-      });
+    getAllTask();
   }, [refresh]);
 
   if (!isAuth) return <Navigate to="/login" />;
@@ -105,23 +117,36 @@ function Home() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <button disabled={loading} type="submit">
-          ADD TASK
-        </button>
+        <button type="submit">ADD TASK</button>
       </form>
 
-      <div className="sub-Container">
-        {userTasks?.map((task) => {
-          <TodoLists
-            key={task._id}
-            title={task.title}
-            description={task.description}
-            isCompleted={task.isCompleted}
-            updateHandler={updateHandler}
-            deleteHandler={deleteHandler}
-            id={task._id}
-          />;
-        })}
+      <div className="sub-Container" style={{ boder: "2px solid red" }}>
+        <TableContainer>
+          <Table variant="simple" width={"80%"} m={"auto"} mt={"2rem"}>
+            <Thead bg="blue.600">
+              <Tr>
+                <Th color="white">Title</Th>
+                <Th color="white">Description</Th>
+                <Th color="white">status </Th>
+                <Th color="white">deltete </Th>
+              </Tr>
+            </Thead>
+
+            {userTasks?.map((task) => {
+              return (
+                <TodoLists
+                  key={task._id}
+                  title={task.title}
+                  description={task.description}
+                  isCompleted={task.isCompleted}
+                  updateHandler={updateHandler}
+                  deleteHandler={deleteHandler}
+                  id={task._id}
+                />
+              );
+            })}
+          </Table>
+        </TableContainer>
       </div>
     </div>
   );
